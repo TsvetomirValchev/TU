@@ -1,22 +1,41 @@
+import java.util.Scanner;
+
 public class Main {
-    public static void main(String[] args) {
-        Book book1 = new Book();
-        book1.setName("Bogat tatko");
-        book1.setAuthor("Velikiqt Getsbi");
-        book1.setYear("1925");
-        book1.setPublisher("Fransis Fitsdjerald");
-        book1.setIsbn("153412246");
-        Book book2 = new Book("White wizard" , "Pavel", "Ussr", "1985", "1643234T");
-        Book book3 = new Book("Babylon-17" , "Samuel", "Usa", "1966", "7837373782882");
+    public static void main(String[] args) throws AlreadyExistingISBNException, IncompleteDataException, WrongISBNException, BookNotInLibraryException {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String input;
+
+        while(true) {
+
+            System.out.print("\nEnter an action" +
+                    "\n(Q to quit, A to add a book to the Library," +
+                    "\nS to search for a book in the library," +
+                    "\nD to delete a book in the Library):");
+
+            input = scanner.nextLine();
+
+            if(input.equalsIgnoreCase("q")) {
+                break;
+            }
+            else if(input.equalsIgnoreCase("A")){
+                Library.addBook(scanner);
+            }
+            else if(input.equalsIgnoreCase("S")) {
+                System.out.print("\nEnter the book's ISBN: ");
+                Library.searchBookByISBN(scanner.nextLine());
+            }
+            else if(input.equalsIgnoreCase("D")) {
+                System.out.print("\nEnter the book's ISBN: ");
+                Library.deleteBookByISBN(scanner.nextLine());
+            }
+            else {
+                System.out.println("Incorrect input");
+            }
+        }
 
 
-        Library library = new Library();
-        library.addBook(book1);
-        library.addBook(book2);
-        library.addBook(book3);
-
-        library.searchBook("153412246");
-        library.deleteBook("333255");
-        library.searchBook("23556ww6");
+        System.out.println("End of program");
     }
 }

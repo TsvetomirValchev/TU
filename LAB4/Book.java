@@ -1,31 +1,29 @@
 public class Book {
-    private String name;
-    private String author;
-    private String publisher;
-    private String year;
-    private String isbn;
 
-    public Book(String name, String author, String publisher, String year, String isbn) {
-        this.name = name;
-        this.author = author;
-        this.publisher = publisher;
-        this.year = year;
-        this.isbn = isbn;
+    String title;
+    String author;
+    String publisher;
+    int publishingYear;
+    String ISBN;
+
+
+    public Book(String title, String author, String publisher, int publishingYear, String ISBN) throws WrongISBNException{
+        setTitle(title);
+        setAuthor(author);
+        setPublisher(publisher);
+        setPublishingYear(publishingYear);
+        setISBN(ISBN);
     }
 
-    public Book() {
 
+
+
+    public String getTitle() {
+        return title;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        if(name.equals(null)){
-            throw new IllegalArgumentException("NO DATA");
-        }
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {
@@ -33,9 +31,7 @@ public class Book {
     }
 
     public void setAuthor(String author) {
-        if(author.equals(null)){
-            throw new IllegalArgumentException("NO DATA");
-        }
+        this.author = author;
     }
 
     public String getPublisher() {
@@ -43,31 +39,33 @@ public class Book {
     }
 
     public void setPublisher(String publisher) {
-        if(publisher.equals(null)){
-            throw new IllegalArgumentException("NO DATA");
-        }
         this.publisher = publisher;
     }
 
-    public String getYear() {
-        return year;
+    public int getPublishingYear() {
+        return publishingYear;
     }
 
-    public void setYear(String year) {
-        if(year.equals(null)){
-            throw new IllegalArgumentException("NO DATA");
+    public void setPublishingYear(int publishingYear) {
+        this.publishingYear = publishingYear;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(String ISBN) throws WrongISBNException{
+
+        if(ISBN.length() == 10) {
+            this.ISBN = ISBN;
         }
-        this.year = year;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        if(isbn.length() != 10){
-            throw new IllegalArgumentException("Wrong isbn");
+        else {
+            throw new WrongISBNException();
         }
-        else this.isbn = isbn;
+    }
+
+    @Override
+    public String toString() {
+        return getTitle() +" "+getAuthor()+" "+getPublisher()+" "+getPublishingYear()+" "+getISBN();
     }
 }
